@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  aws:
+    environment:
+      DEBUG: 1
+      LAMBDA_DOCKER_NETWORK: aws-network
+      LAMBDA_REMOTE_DOCKER: 0
+      SERVICES: lambda
+    image: localstack/localstack:0.12.2
+    networks:
+      - aws-network
+    ports:
+      - 4566:4566
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  aws-network:
+    name: aws-network
