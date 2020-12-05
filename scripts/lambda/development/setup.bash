@@ -7,3 +7,4 @@ DIR=$1
 
 compile $DIR &
 create $DIR || true # ! Prevent error
+wait
