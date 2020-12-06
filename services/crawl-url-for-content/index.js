@@ -15,7 +15,7 @@ const URL = 'https://www.pray.com/series/james-earl-jones-reads-the-bible/' // !
 
 const loadDOMScripts = () => {
 	return new Promise((resolve, reject) => {
-		setTimeout(resolve, 2000)
+		setTimeout(resolve, 2000) // ! Shorter than 2 seconds does not appear to work
 	}
 )}
 const perform = async () => {
