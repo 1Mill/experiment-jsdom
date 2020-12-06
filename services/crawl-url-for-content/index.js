@@ -11,7 +11,7 @@ const HTML_TAGS = [
 	'h6',
 	'p',
 ]
-const URL = 'https://www.pray.com/series/james-earl-jones-reads-the-bible/'
+const URL = 'https://www.pray.com/series/james-earl-jones-reads-the-bible/' // ! This is a client-side rendered page
 
 const loadDOMScripts = () => {
 	return new Promise((resolve, reject) => {
