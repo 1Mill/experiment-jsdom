@@ -2,11 +2,20 @@ const fetch = require('node-fetch')
 const { JSDOM } = require('jsdom')
 const { v4: { createEventStream } } = require('@1mill/cloudevents')
 
+const HTML_TAGS = [
+	'h1',
+	'h2',
+	'h3',
+	'h4',
+	'h5',
+	'h6',
+	'p',
+]
 const URL = 'https://www.pray.com/series/james-earl-jones-reads-the-bible/'
 
 const loadDOMScripts = () => {
 	return new Promise((resolve, reject) => {
-		setTimeout(() => { resolve() }, 2000)
+		setTimeout(resolve, 2000)
 	}
 )}
 const perform = async () => {
@@ -18,11 +27,15 @@ const perform = async () => {
 		runScripts: 'dangerously',
 		url: URL,
 	})
-
 	await loadDOMScripts()
-	const temp = Array.from(dom.window.document.querySelectorAll('p')).map(htmlNode => htmlNode.textContent)
-	console.log(temp.length)
-	return temp.length
+
+	const tags = HTML_TAGS.join(', ')
+	const nodes = dom.window.document.querySelectorAll(tags)
+	const elements = Array.from(nodes).map(node => ({
+		content: node.innerHTML,
+		tag: node.tagName.toLowerCase(),
+	}))
+	console.log(elements)
 }
 
 const lambda = createEventStream({ protocol: 'lambda' })
