@@ -19,8 +19,8 @@ const loadDOMScripts = () => {
 	}
 )}
 const perform = async () => {
-	const res = await fetch(URL)
-	const body = await res.text()
+	const response = await fetch(URL)
+	const body = await response.text()
 
 	const dom = new JSDOM(body, {
 		resources: 'usable',
