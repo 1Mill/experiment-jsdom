@@ -15,6 +15,15 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  editor:
+    build: ./services/editor
+    environment:
+      NODE_ENV: development
+    ports:
+      - 8080:8080
+    volumes:
+      - ./services/editor:/app
+
 networks:
   aws-network:
     name: aws-network
