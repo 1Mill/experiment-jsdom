@@ -1,18 +1,29 @@
+const fetch = require('node-fetch')
 const { JSDOM } = require('jsdom')
 const { v4: { createEventStream } } = require('@1mill/cloudevents')
 
-const lambda = createEventStream({ protocol: 'lambda' })
+const URL = 'https://www.pray.com/series/james-earl-jones-reads-the-bible/'
+
+const loadDOMScripts = () => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => { resolve() }, 2000)
+	}
+)}
 const perform = async () => {
-	const dom = await JSDOM.fromURL('https://example.com', {
+	const res = await fetch(URL)
+	const body = await res.text()
+
+	const dom = new JSDOM(body, {
 		resources: 'usable',
 		runScripts: 'dangerously',
+		url: URL,
 	})
 
-	const test = dom.window.document.querySelector('h1').textContent
-	console.log(test)
-
-	const paragraphs = Array.from(dom.window.document.querySelectorAll('p')).map(htmlNode => htmlNode.textContent)
-	console.log(paragraphs)
-	console.log(paragraphs.length)
+	await loadDOMScripts()
+	const temp = Array.from(dom.window.document.querySelectorAll('p')).map(htmlNode => htmlNode.textContent)
+	console.log(temp.length)
+	return temp.length
 }
+
+const lambda = createEventStream({ protocol: 'lambda' })
 exports.handler = lambda.handler(perform)
