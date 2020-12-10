@@ -7,6 +7,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
+COPY . .
+
 ARG PORT=8080
 ENV \
 	HOST=0.0.0.0 \
@@ -14,7 +16,5 @@ ENV \
 	PORT=$PORT
 
 EXPOSE $PORT
-
-COPY . .
 
 CMD ["npm", "run", "start"]
