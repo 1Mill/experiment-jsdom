@@ -1,6 +1,7 @@
 FROM node:15-alpine
 
-RUN apk update
+RUN apk update && apk add \
+	python2
 
 WORKDIR /app
 
